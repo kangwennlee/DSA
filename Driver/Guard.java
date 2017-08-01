@@ -34,5 +34,8 @@ public class Guard extends User{
         this.busy = busy;
     }
     
-    
+    @Override
+    public String toString(){
+        return super.toString()+"\t"+workID+"\t\t"+busy;
+    }
 }

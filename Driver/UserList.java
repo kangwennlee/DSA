@@ -37,11 +37,15 @@ public class UserList {
         String str ="";
         str +="List of users:\nNo.\tName\t\tContact Number\n";
         for (int i = 1; i <= listU.getLength(); i++) {
-            str+=i + ".\t" + listU.getEntry(i).name + "\t" + listU.getEntry(i).contactNo + "\n";
+            str+=i + ".\t" + listU.getEntry(i).toString() + "\n";
         }
         return str;
     }
-
+    
+    public User getUser(int choice){
+        return listU.getEntry(choice);
+    }
+    
     public User getUserByName(String name) {
         for (int i = 1; i <= listU.getLength(); i++) {
             if (listU.getEntry(i).name.equals(name)) {
@@ -70,16 +74,15 @@ public class UserList {
         String str = "";
         str += "List of users:\nNo.\tName\t\tContact Number\tStaff ID\tBusy?\n";
         for (int i = 1; i <= listG.getLength(); i++) {
-            str+= i + ".\t" 
-                    + listG.getEntry(i).name 
-                    + "\t" + listG.getEntry(i).contactNo 
-                    + "\t" + listG.getEntry(i).workID 
-                    + "\t\t" + listG.getEntry(i).busy
-                    + "\n";
+            str+= i + ".\t" + listG.getEntry(i).toString()+"\n";
         }
         return str;
     }
-
+    
+    public Guard getGuard(int choice){
+        return listG.getEntry(choice);
+    }
+    
     public Guard getGuardByName(String name) {
         for (int i = 1; i <= listG.getLength(); i++) {
             if (listG.getEntry(i).name.equals(name)) {

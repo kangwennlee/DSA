@@ -89,24 +89,25 @@ public class security_system {
                 name = scan.nextLine();
                 System.out.print("User Contact Number: ");
                 contactNo = scan.nextLine();
-                if(userList.addUser(name, contactNo))
+                if (userList.addUser(name, contactNo)) {
                     System.out.println("User " + name + "added!");
-                else
+                } else {
                     System.out.println("User existed in the list!");
+                }
                 break;
             case 2:
                 scan.nextLine();
-                 System.out.print(userList.printUserList());
+                System.out.print(userList.printUserList());
                 break;
             case 3:
                 scan.nextLine();
-                 System.out.print(userList.printUserList());
+                System.out.print(userList.printUserList());
                 System.out.print("Which user do you want to delete? (number): ");
-                choice= scan.nextInt();
-                if(userList.removeUser(choice)==true){
+                choice = scan.nextInt();
+                if (userList.removeUser(choice) == true) {
                     System.out.println("User Successfully deleted!");
                     System.out.print(userList.printUserList());
-                }                    
+                }
                 break;
             case 4:
                 scan.nextLine();
@@ -117,10 +118,11 @@ public class security_system {
                 contactNo = scan.nextLine();
                 System.out.print("Guard Work ID: ");
                 workID = scan.nextLine();
-                if(userList.addGuard(name, contactNo,workID))
+                if (userList.addGuard(name, contactNo, workID)) {
                     System.out.println("Guard " + name + "added!");
-                else
+                } else {
                     System.out.println("Guard existed in the list!");
+                }
                 break;
             case 5:
                 scan.nextLine();
@@ -131,7 +133,7 @@ public class security_system {
                 System.out.print(userList.printGuardList());
                 System.out.print("Which gaurd you do you want to delete? (number): ");
                 choice = scan.nextInt();
-                if(userList.removeGuard(choice)==true){
+                if (userList.removeGuard(choice) == true) {
                     System.out.println("Guard Successfully deleted!");
                     System.out.print(userList.printGuardList());
                 }
@@ -158,7 +160,7 @@ public class security_system {
         userList.addGuard("Boston Lom", "017-6465032", "1200104");
     }
 
-    public static void initializeEmergency(){
+    public static void initializeEmergency() {
         emergencyService.addEmergency(userList.getUserByName("Yang Poh Yee"), 1, "Bangunan Tan Siew Sin");
         emergencyService.addEmergency(userList.getUserByName("Chan Peck Hui"), 2, "Block D");
         emergencyService.addEmergency(userList.getUserByName("Derrick Liew"), 4, "Block K");
@@ -257,79 +259,51 @@ public class security_system {
     public static void taskModule() {
         printLine();
         System.out.println("Please select the following option");
-        System.out.println("1. Assign Task to Guard \n2. Update Task Status \n3. Print Pending Task \n4. Print Completed Task \n5. Clear Completed Task \n6. Return to Main Menu");
+        System.out.println("1. Assign Task to Guard \n2. Update Task Status \n3. Print Pending Task \n4. Print Completed Task \n5. Clear Completed Task List\n6. Return to Main Menu");
         System.out.print("Enter your choice: ");
         switch (scan.nextInt()) {
             case 1: //assign task to guard
                 scan.nextLine();
-
                 emergencyService.printEmergencyQueue();
                 System.out.print("Enter Victim's Name: ");
                 Emergency emergencyCase = emergencyService.getEmergencyByUser(userList.getUserByName(scan.nextLine()));
 
                 userList.printGuardList();
                 System.out.println("You should choose the not busy guard.");
+                System.out.print(userList.printGuardList());
                 System.out.print("Enter Guard's Name: ");
                 Guard guard = userList.getGuardByName(scan.nextLine());
 
                 emergencyService.printToolList();
                 System.out.print("Enter the tools used: ");
                 Tools tools = emergencyService.getToolByName(scan.nextLine());
-
                 taskAssignment.addTask(emergencyCase, guard, tools);
                 System.out.println("Task added to the guard!");
                 break;
 
             case 2: //update Task Status
                 scan.nextLine();
-               // System.out.println("Is this task completed? ");
-               // System.out.println("If yes. please choose 1. \nIf no, please choose 2.");
-               // switch(scan.nextInt()){
-               //     case 1:
-                        taskAssignment.updateTaskStatus();
-               //     break;
-                 //   case 2:
-                   //     break;
-                //}
+                taskAssignment.printPendingTask();
+                System.out.print("Please select the completed task: ");
+                if (taskAssignment.updateTaskStatus(scan.nextInt()) == true) {
+                    System.out.println("Task successfully updated!");
+                }
                 break;
 
             case 3:  //Print Pending Task
                 scan.nextLine();
-               // System.out.println("Do you want to print current pending task? ");
-               // System.out.println("If yes. please choose 1. \nIf no, please choose 2.");
-               // switch(scan.nextInt()){
-               //     case 1:
-                        taskAssignment.printPendingTask();
-               //     break;
-               //     case 2:
-               //         break;
-               // }
+                taskAssignment.printPendingTask();
                 break;
 
             case 4:  //Print Completed Task
                 scan.nextLine();
-              //  System.out.println("Do you want to print completed task? ");
-               // System.out.println("If yes. please choose 1. \nIf no, please choose 2.");
-               // switch(scan.nextInt()){
-               //     case 1:
-                        taskAssignment.printCompletedTaskList();
-               //     break;
-               //     case 2:
-               //         break;
-                //}
+                taskAssignment.printCompletedTaskList();
                 break;
 
             case 5: //Clear Completed Task
                 scan.nextLine();
-            //    System.out.println("Do you want to clear completed task list? ");
-            //    System.out.println("If yes. please choose 1. \nIf no, please choose 2.");
-            //    switch(scan.nextInt()){
-            //        case 1:
-                        taskAssignment.clearCompletedTask();
-            //        break;
-             //       case 2:
-               //         break;
-               // }
+                taskAssignment.clearCompletedTask();
+                taskAssignment.printCompletedTaskList();
                 break;
             case 6:
                 repeatOption = false;

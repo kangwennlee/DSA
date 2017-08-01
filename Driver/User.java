@@ -26,7 +26,7 @@ public class User implements Comparable<User>{
     
     @Override
     public String toString(){
-        return "Name: "+name +"\nContact Number: "+contactNo+"\n";
+        return name +"\t"+contactNo;
     }
    
 }

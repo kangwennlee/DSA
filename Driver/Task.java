@@ -21,6 +21,7 @@ public class Task implements Comparable<Task>{
         this.guard = guard;
         this.tools = tools;        
         this.completed = false;
+        this.guard.busy = true;
     }
 
     @Override
@@ -30,6 +31,6 @@ public class Task implements Comparable<Task>{
     
     @Override
     public String toString(){
-        return (emergency.victim.name+"\t"+emergency.typeOfEmergency+"\t"+guard.name+"\t"+tools.toolName);       
+        return (emergency.victim.name+"\t"+emergency.typeOfEmergency+"\t"+guard.name+"\t"+tools.toolName+"\t"+completed);       
     }
 }
