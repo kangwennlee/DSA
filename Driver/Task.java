@@ -30,6 +30,6 @@ public class Task implements Comparable<Task>{
     
     @Override
     public String toString(){
-        return (emergency.victim.name+"\t"+emergency.typeOfEmergency+"\t"+guard.name+"\t"+tools.name);       
+        return (emergency.victim.name+"\t"+emergency.typeOfEmergency+"\t"+guard.name+"\t"+tools.toolName);       
     }
 }

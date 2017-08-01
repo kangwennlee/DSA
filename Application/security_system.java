@@ -89,18 +89,24 @@ public class security_system {
                 name = scan.nextLine();
                 System.out.print("User Contact Number: ");
                 contactNo = scan.nextLine();
-                userList.addUser(name, contactNo);
+                if(userList.addUser(name, contactNo))
+                    System.out.println("User " + name + "added!");
+                else
+                    System.out.println("User existed in the list!");
                 break;
             case 2:
                 scan.nextLine();
-                userList.printUserList();
+                 System.out.print(userList.printUserList());
                 break;
             case 3:
                 scan.nextLine();
-                userList.printUserList();
+                 System.out.print(userList.printUserList());
                 System.out.print("Which user do you want to delete? (number): ");
                 choice= scan.nextInt();
-                userList.removeUser(choice);
+                if(userList.removeUser(choice)==true){
+                    System.out.println("User Successfully deleted!");
+                    System.out.print(userList.printUserList());
+                }                    
                 break;
             case 4:
                 scan.nextLine();
@@ -111,17 +117,24 @@ public class security_system {
                 contactNo = scan.nextLine();
                 System.out.print("Guard Work ID: ");
                 workID = scan.nextLine();
-                userList.addGuard(name, contactNo, workID);
+                if(userList.addGuard(name, contactNo,workID))
+                    System.out.println("Guard " + name + "added!");
+                else
+                    System.out.println("Guard existed in the list!");
                 break;
             case 5:
                 scan.nextLine();
-                userList.printGuardList();
+                System.out.print(userList.printGuardList());
                 break;
             case 6:
                 scan.nextLine();
-                System.out.print("Please enter guard's name:");
+                System.out.print(userList.printGuardList());
+                System.out.print("Which gaurd you do you want to delete? (number): ");
                 choice = scan.nextInt();
-                userList.removeGuard(choice);
+                if(userList.removeGuard(choice)==true){
+                    System.out.println("Guard Successfully deleted!");
+                    System.out.print(userList.printGuardList());
+                }
                 break;
             case 7:
                 repeatOption = false;

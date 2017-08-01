@@ -129,10 +129,6 @@ public class SortedLinkList<T extends Comparable<? super T>> implements SortedLi
         return (length == 0);
     }
 
-    public boolean isFull() {
-        return false;
-    }
-
     @Override
     public String toString() {
         String outputStr = "";
