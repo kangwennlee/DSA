@@ -90,7 +90,7 @@ public class security_system {
                 System.out.print("User Contact Number: ");
                 contactNo = scan.nextLine();
                 if (userList.addUser(name, contactNo)) {
-                    System.out.println("User " + name + "added!");
+                    System.out.println("User " + name + " added!");
                 } else {
                     System.out.println("User existed in the list!");
                 }
@@ -255,6 +255,7 @@ public class security_system {
             
             case 7:
                 System.out.print(emergencyService.printToolList());
+                break;
             case 8:
                 repeatOption = false;
                 break;
