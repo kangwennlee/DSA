@@ -21,7 +21,7 @@ public class LinkedStack<T> implements StackInterface<T>
         @Override
         public void push(T element)
         {
-            Node<T> newNode = new Node<T>(element);
+            Node<T> newNode = new Node<>(element);
             newNode.setNext(top);
             top = newNode;
         }

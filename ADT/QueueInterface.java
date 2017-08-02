@@ -35,6 +35,7 @@ public interface QueueInterface<T> {
     public void clear();
      /**
    * Task: Removes all entries from the queue.
+     * @param entry
    */
     
     public void remove(T entry);

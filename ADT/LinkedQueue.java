@@ -7,6 +7,7 @@ package ADT;
 /**
  *
  * @author Kangwenn
+ * @param <T>
  */
 public class LinkedQueue<T extends Comparable<? super T>> implements QueueInterface<T> {
     protected Node<T> front;
@@ -20,10 +21,9 @@ public class LinkedQueue<T extends Comparable<? super T>> implements QueueInterf
     }
 
     @Override
-    public void enqueue(T element) throws QueueUnderflowException {
+    public void enqueue(T element){
         front = enqueue(element, front);
         numElements++;
-        
     }
     
     private Node enqueue(T newEntry, Node currNode) {
