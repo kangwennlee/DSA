@@ -177,7 +177,7 @@ public class security_system {
         int ans;
 
         System.out.print("Please select the following option:");
-        System.out.print("\n1. Add emergency alert\n2. Remove emergency alert\n3. Display Emergency List\n4.Display Victim List\n5. Add tools\n6. Remove tools\n7. Display Tools List\n8. Return to main menu");
+        System.out.print("\n1. Add emergency alert\n2. Remove emergency alert\n3. Display Emergency List\n4. Display Victim List\n5. Add tools\n6. Remove tools\n7. Display Tools List\n8. Return to main menu");
         System.out.print("\nEnter your choice: ");
         switch (scan.nextInt()) {
             case 1:
@@ -190,29 +190,32 @@ public class security_system {
                     }
                 } while (userList.getUserByName(name) == null);
                 victim = userList.getUserByName(name);
+                if (emergencyService.getEmergencyByUser(victim) == null) {
+                    int typeOfEmergency;
+                    do {
+                        emergencyService.printTypeOfEmergencyList();
+                        System.out.print("\nEnter selection: ");
+                        typeOfEmergency = scan.nextInt();
+                        if (typeOfEmergency < 1 || typeOfEmergency > emergencyService.getTypeOfEmergencyListSize()) {
+                            System.out.println("selection must be an integer number between 1-6");
+                        }
+                    } while (typeOfEmergency < 1 || typeOfEmergency > emergencyService.getTypeOfEmergencyListSize());
 
-                int typeOfEmergency;
-                do {
+                    System.out.print("Current location: ");
+                    scan.nextLine();
+                    String location = scan.nextLine();
+                    emergencyService.addEmergency(victim, typeOfEmergency, location);
+                    System.out.println("Emergency Added!");
+                    printLine();
+                    System.out.print(emergencyService.printEmergencyQueue());
+                } else {
+                    System.out.println("User already has an emergency in the queue!");
+                }
 
-                   emergencyService.printTypeOfEmergencyList();
-                    System.out.print("\nEnter selection: ");
-                    typeOfEmergency = scan.nextInt();
-                    if (typeOfEmergency < 1|| typeOfEmergency > emergencyService.getTypeOfEmergencyListSize()) {
-                        System.out.println("selection must be an integer number between 1-6");
-                    }
-                } while (typeOfEmergency < 1|| typeOfEmergency > emergencyService.getTypeOfEmergencyListSize());
-
-                System.out.print("Current location: ");
-                scan.nextLine();
-                String location = scan.nextLine();
-                emergencyService.addEmergency(victim, typeOfEmergency, location);
-                System.out.println("Emergency Added!");
-                printLine();
-                System.out.print(emergencyService.printEmergencyQueue());
                 break;
             case 2:
                 scan.nextLine();
-                if(emergencyService.getEmergencyQueueSize() <=0){
+                if (emergencyService.getEmergencyQueueSize() <= 0) {
                     System.out.print("There are currently no emergency to be removed");
                     break;
                 }
@@ -229,7 +232,6 @@ public class security_system {
             case 4:
                 System.out.print(emergencyService.printVictimsList());
                 break;
-
             case 5:
                 scan.nextLine();
                 System.out.print("Tool name: ");
@@ -237,22 +239,23 @@ public class security_system {
                 System.out.print("Tool usages: ");
                 toolUsage = scan.nextLine();
                 emergencyService.addTools(toolName, toolUsage);
+                System.out.println("Tool Added!");
                 System.out.print(emergencyService.printToolList());
                 break;
             case 6:
                 scan.nextLine();
-                if(emergencyService.getToolListSize() <=0){
+                if (emergencyService.getToolListSize() <= 0) {
                     System.out.print("There are no tools available to be removed");
                     break;
                 }
-
                 System.out.print(emergencyService.printToolList());
                 System.out.print("Which tool do you want to remove?: ");
                 ans = scan.nextInt();
-                emergencyService.removeTools(ans);
-                System.out.print(emergencyService.printToolList());
+                if (ans <= emergencyService.getToolListSize()) {
+                    emergencyService.removeTools(ans);
+                    System.out.print(emergencyService.printToolList());
+                }
                 break;
-            
             case 7:
                 System.out.print(emergencyService.printToolList());
                 break;
