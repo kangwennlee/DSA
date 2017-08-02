@@ -4,45 +4,54 @@
  * and open the template in the editor.
  */
 package ADT;
-
 /**
  *
  * @author Kangwenn
  */
-public class LinkedQueue<T> implements QueueInterface<T> {
-
+public class LinkedQueue<T extends Comparable<? super T>> implements QueueInterface<T> {
     protected Node<T> front;
     protected Node<T> rear;
     protected int numElements = 0;
-
-    public LinkedQueue() {
+    
+    public LinkedQueue()
+    {
         front = null;
         rear = null;
     }
 
     @Override
     public void enqueue(T element) throws QueueUnderflowException {
-        Node<T> newNode = new Node<T>(element);
-        if (rear == null) {
-            front = newNode;
-        } else {
-            rear.setNext(newNode);
-        }
-        rear = newNode;
+        front = enqueue(element, front);
         numElements++;
+        
+    }
+    
+    private Node enqueue(T newEntry, Node currNode) {
+        if (currNode == null){
+            currNode = new Node(newEntry);
+            rear = currNode;
+        }
+        else if (newEntry.compareTo((T) currNode.getData()) > 0){
+            currNode = new Node(newEntry, currNode);
+            
+        } else {
+            Node nodeAfter = enqueue(newEntry, currNode.getNext());
+            currNode.setNext(nodeAfter);
+        }
+        return currNode;
     }
 
     @Override
     public T dequeue() throws QueueUnderflowException {
-        if (isEmpty()) {
+        if(isEmpty())
             throw new QueueUnderflowException("Dequeue attempted on empty queue.");
-        } else {
+        else
+        {
             T element;
             element = front.getData();
             front = front.getNext();
-            if (front == null) {
+            if(front == null)
                 rear = null;
-            }
             numElements--;
             return element;
         }
@@ -50,15 +59,16 @@ public class LinkedQueue<T> implements QueueInterface<T> {
 
     @Override
     public T getFront() {
-        return front.getData();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public boolean isEmpty() // Returns true if this queue is empty; otherwise, returns false
+    public boolean isEmpty()
+    // Returns true if this queue is empty; otherwise, returns false
     {
-        return (numElements == 0);
+        return (numElements==0);
     }
-
+    
     @Override
     public int size() {
         return numElements;
@@ -68,45 +78,55 @@ public class LinkedQueue<T> implements QueueInterface<T> {
     public void clear() {
         front = null;
         rear = null;
-        numElements = 0;
+        numElements=0;
     }
 
     @Override
     public void remove(T entry) {
-        Node tempNode = front;
-        if (tempNode.getData() == entry) {
-            front = front.getNext();
-        } else if (rear.getData() == entry) {
-            for (int i = 1; i < numElements; i++) {
-                tempNode = tempNode.getNext();
-            }
-            tempNode.setNext(null);
-            numElements--;
-        } else {
-            while (tempNode.getNext() != null) {
-
-            }
-            if (tempNode.getNext().getData() == entry) {
-                tempNode.setNext(tempNode.getNext().getNext());
-                numElements--;
-            } else {
-                tempNode = tempNode.getNext();
-            }
+        if(isEmpty())
+            throw new QueueUnderflowException("Dequeue attempted on empty queue.");
+        
+        else if(!contains(entry)){
+            throw new QueueUnderflowException("This queue does not contains element " + entry);
         }
-
+        else
+        {
+            if (front.getData() == entry){
+                dequeue();
+            }
+            else{
+                front = remove(entry, front);
+                numElements--;
+            }
+            
+        }
+    }
+    
+    private Node remove(T entry, Node currNode) {
+        if(currNode.getData() == entry){
+            currNode = currNode.getNext();
+        }
+        else{
+            Node nodeAfter = remove(entry, currNode.getNext());
+            if (nodeAfter == null){
+                rear = currNode;
+            }
+            currNode.setNext(nodeAfter);
+        }
+        return currNode;
     }
 
     @Override
     public boolean contains(T entry) {
-        Node tempNode = front;
-        while (tempNode.getNext() != null) {
-            if (tempNode.getData() == entry) {
-                return true;
-            } else {
-                tempNode = tempNode.getNext();
+        boolean contain = false;
+           Node tempNode = front;
+        while(tempNode != null){
+            if (tempNode.getData() == entry){
+                contain = true;
             }
+            tempNode = tempNode.getNext();
         }
-        return false;
+        return contain;
     }
 
     @Override
@@ -123,5 +143,6 @@ public class LinkedQueue<T> implements QueueInterface<T> {
 
         return result;
     }
-
+    
+    
 }

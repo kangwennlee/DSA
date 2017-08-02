@@ -173,6 +173,7 @@ public class security_system {
         String name;
         User victim = null;
         String toolName, toolUsage;
+        int ans;
 
         System.out.print("Please select the following option:");
         System.out.print("\n1. Add emergency alert\n2. Remove emergency alert\n3. Add tools\n4. Remove tools\n5. Add emergency contact\n6. Remove emergency contact\n7. Return to main menu");
@@ -189,38 +190,39 @@ public class security_system {
                 } while (userList.getUserByName(name) == null);
                 victim = userList.getUserByName(name);
 
-                int typeOfEmergency = 0;
+                int typeOfEmergency;
                 do {
-                    System.out.print("Type of emergency: \n");
-                    System.out.print("1. Suicide case\n2. Fainting\n3. Food poisoning\n4. Figthing\n5. Missing items\n6. Argument");
+
+                   emergencyService.printTypeOfEmergencyList();
                     System.out.print("\nEnter selection: ");
                     typeOfEmergency = scan.nextInt();
-                    if (typeOfEmergency < 1 || typeOfEmergency > 6) {
+                    if (typeOfEmergency < 1|| typeOfEmergency > emergencyService.getTypeOfEmergencyListSize()) {
                         System.out.println("selection must be an integer number between 1-6");
                     }
-                } while (typeOfEmergency < 1 || typeOfEmergency > 6);
+                } while (typeOfEmergency < 1|| typeOfEmergency > emergencyService.getTypeOfEmergencyListSize());
 
                 System.out.print("Current location: ");
                 scan.nextLine();
                 String location = scan.nextLine();
                 emergencyService.addEmergency(victim, typeOfEmergency, location);
                 System.out.println("Emergency Added!");
+                printLine();
                 emergencyService.printEmergencyQueue();
                 break;
             case 2:
                 scan.nextLine();
-                do {
-                    System.out.print("User name: ");
-                    name = scan.nextLine();
-                    if (userList.getUserByName(name) == null) {
-                        System.out.println("This user does not exist, please re-enter another name.");
-                    }
-                } while (userList.getUserByName(name) == null);
-                victim = userList.getUserByName(name);
-                Emergency emergency = emergencyService.getEmergencyByUser(victim);
-                emergencyService.removeEmergency(emergency);
+                if(emergencyService.getEmergencyQueueSize() <=0){
+                    System.out.print("There are currently no emergency to be removed");
+                    break;
+                }
+
+                emergencyService.printEmergencyQueue();
+                System.out.print("Which emergency do you want to remove? ");
+                ans = scan.nextInt();
+                emergencyService.removeEmergency(ans);
                 emergencyService.printEmergencyQueue();
                 break;
+
             case 3:
                 scan.nextLine();
                 System.out.print("Tool name: ");
@@ -232,9 +234,13 @@ public class security_system {
                 break;
             case 4:
                 scan.nextLine();
-                int ans;
+                if(emergencyService.getToolListSize() <=0){
+                    System.out.print("There are no tools available to be removed");
+                    break;
+                }
+
                 emergencyService.printToolList();
-                System.out.print("Which tool do you want to delete?: ");
+                System.out.print("Which tool do you want to remove?: ");
                 ans = scan.nextInt();
                 emergencyService.removeTools(ans);
                 emergencyService.printToolList();
@@ -259,58 +265,14 @@ public class security_system {
     public static void taskModule() {
         printLine();
         System.out.println("Please select the following option");
-        System.out.println("1. Assign Task to Guard \n2. Update Task Status \n3. Print Pending Task \n4. Print Completed Task \n5. Clear Completed Task List\n6. Return to Main Menu");
+        System.out.println("1. Assign Task to Guard \n2. Update Task Status \n3. Print Pending Task \n4. Print Completed Task \n5. Clear Completed Task \n6. Return to Main Menu");
         System.out.print("Enter your choice: ");
         switch (scan.nextInt()) {
-            case 1: //assign task to guard
+            case 1:
                 scan.nextLine();
-                emergencyService.printEmergencyQueue();
-                System.out.print("Enter Victim's Name: ");
-                Emergency emergencyCase = emergencyService.getEmergencyByUser(userList.getUserByName(scan.nextLine()));
-
                 userList.printGuardList();
-                System.out.println("You should choose the not busy guard.");
-                System.out.print(userList.printGuardList());
                 System.out.print("Enter Guard's Name: ");
                 Guard guard = userList.getGuardByName(scan.nextLine());
-
-                emergencyService.printToolList();
-                System.out.print("Enter the tools used: ");
-                Tools tools = emergencyService.getToolByName(scan.nextLine());
-                taskAssignment.addTask(emergencyCase, guard, tools);
-                System.out.println("Task added to the guard!");
-                break;
-
-            case 2: //update Task Status
-                scan.nextLine();
-                taskAssignment.printPendingTask();
-                System.out.print("Please select the completed task: ");
-                if (taskAssignment.updateTaskStatus(scan.nextInt()) == true) {
-                    System.out.println("Task successfully updated!");
-                }
-                break;
-
-            case 3:  //Print Pending Task
-                scan.nextLine();
-                taskAssignment.printPendingTask();
-                break;
-
-            case 4:  //Print Completed Task
-                scan.nextLine();
-                taskAssignment.printCompletedTaskList();
-                break;
-
-            case 5: //Clear Completed Task
-                scan.nextLine();
-                taskAssignment.clearCompletedTask();
-                taskAssignment.printCompletedTaskList();
-                break;
-            case 6:
-                repeatOption = false;
-                break;
-            default:
-                System.out.println("Invalid number. Please try again.");
-
         }
 
     }

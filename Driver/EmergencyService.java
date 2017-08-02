@@ -13,93 +13,75 @@ import ADT.*;
  */
 public class EmergencyService {
 
-    QueueInterface<Emergency> emergencyQueue1 = new LinkedQueue<>();
-    QueueInterface<Emergency> emergencyQueue2 = new LinkedQueue<>();
-    QueueInterface<Emergency> emergencyQueue3 = new LinkedQueue<>();
+    QueueInterface<Emergency> emergencyQueue = new LinkedQueue<>();
     SortedListInterface<Tools> toolsList = new SortedLinkList<>();
-
-    public void addEmergency(User victim, int typeOfEmergency, String location) {
-        String type = "";
-        switch (typeOfEmergency) {
-            case 1:
-                type = "Suicide case";
-                break;
-            case 2:
-                type = "Fainting";
-                break;
-            case 3:
-                type = "Food poisoning";
-                break;
-            case 4:
-                type = "Figthing";
-                break;
-            case 5:
-                type = "Missing items";
-                break;
-            default:
-                type = "Argument";
+    SortedListInterface<String> typeOfEmergencyList = new SortedLinkList<>();
+    
+    public void initialiseTypeOfEmergency(){
+        typeOfEmergencyList.add("Argument");
+        typeOfEmergencyList.add("Missing items");
+        typeOfEmergencyList.add("Figthing");
+        typeOfEmergencyList.add("Food poisoning");
+        typeOfEmergencyList.add("Fainting");
+        typeOfEmergencyList.add("Suicide case");
+    }
+    public void printTypeOfEmergencyList(){
+        System.out.print("Type of emergency: \n");
+        for (int i =1; i<=typeOfEmergencyList.getLength();i++){
+            System.out.print(i+ ". ");
+            System.out.print(typeOfEmergencyList.getEntry(i)+ "\n");
         }
-        Emergency newCase = new Emergency(victim, type, location);
-
-        if (typeOfEmergency == 1 || typeOfEmergency == 2) {
-            emergencyQueue1.enqueue(newCase);
-        } else if (typeOfEmergency == 3 || typeOfEmergency == 4) {
-            emergencyQueue2.enqueue(newCase);
-        } else {
-            emergencyQueue3.enqueue(newCase);
-        }
-
+    }
+    public String getTypeOfEmergencyByPosition(int position){
+        return typeOfEmergencyList.getEntry(position);
+    }
+    
+    public int getTypeOfEmergencyListSize(){
+        return typeOfEmergencyList.getLength();
+    }
+    
+    public void addEmergency(User victim, int selection, String location) {
+        String typeOfEmergency = getTypeOfEmergencyByPosition(selection);
+        
+        Emergency newCase = new Emergency(victim, typeOfEmergency, location, selection);
+            emergencyQueue.enqueue(newCase);
+    }
+    
+    public void removeEmergency(){
+        emergencyQueue.dequeue();
     }
 
-    public void removeEmergency(Emergency emergency) {
-        
-        if (emergencyQueue1.contains(emergency)) {
-            emergencyQueue1.remove(emergency);
-        } else if (emergencyQueue2.contains(emergency)) {
-            emergencyQueue2.remove(emergency);
-        } else {
-            emergencyQueue3.remove(emergency);
-        }
-
+    public void removeEmergency(int positionOfEmergency) {
+        Emergency temp = getEmergencyByPosition(positionOfEmergency);
+        emergencyQueue.remove(temp);
+    }
+    
+    public Emergency getEmergencyByPosition(int positionOfEmergency){
+        return emergencyQueue.getEntry(positionOfEmergency);
+    }
+    
+    public int getEmergencyQueueSize(){
+        return emergencyQueue.size();
     }
 
     public Emergency getEmergencyByUser(User user) {
         Emergency myEmergency = null;
-        for (int i = 1; i <= emergencyQueue1.size(); i++) {
-            Emergency temp = emergencyQueue1.getEntry(i);
+        for (int i = 1; i <= emergencyQueue.size(); i++) {
+            Emergency temp = emergencyQueue.getEntry(i);
             if (temp.victim == user) {
                 myEmergency = temp;
             }
         }
-        for (int i = 1; i <= emergencyQueue2.size(); i++) {
-            Emergency temp = emergencyQueue2.getEntry(i);
-            if (temp.victim == user) {
-                myEmergency = temp;
-            }
-        }
-        for (int i = 1; i <= emergencyQueue2.size(); i++) {
-            Emergency temp = emergencyQueue2.getEntry(i);
-            if (temp.victim == user) {
-                myEmergency = temp;
-            }
-        }
+        
         return myEmergency;
     }
 
     public void printEmergencyQueue() {
         System.out.println("Emergency Queue: ");
         int index = 1;
-        for (int i = 1; i <= emergencyQueue1.size(); i++) {
-            System.out.print(index++ + ". \n");
-            System.out.print(emergencyQueue1.getEntry(i));
-        }
-        for (int i = 1; i <= emergencyQueue2.size(); i++) {
-            System.out.print(index++ + ". \n");
-            System.out.println(emergencyQueue2.getEntry(i));
-        }
-        for (int i = 1; i <= emergencyQueue3.size(); i++) {
-            System.out.print(index++ + ". \n");
-            System.out.println(emergencyQueue3.getEntry(i));
+        for (int i = 1; i <= emergencyQueue.size(); i++) {
+            System.out.print(i + ". \n");
+            System.out.print(emergencyQueue.getEntry(i));
         }
     }
 
@@ -110,10 +92,14 @@ public class EmergencyService {
     public void removeTools(int position) {
         toolsList.remove(toolsList.getEntry(position));
     }
+    
+    public int getToolListSize(){
+        return toolsList.getLength();
+    }
 
     public Tools getToolByName(String toolName) {
         for (int i = 1; i <= toolsList.getLength(); i++) {
-            if (toolsList.getEntry(i).toolName.equals(toolName)) {
+            if (toolsList.getEntry(i).toolName == toolName) {
                 return toolsList.getEntry(i);
             }
 

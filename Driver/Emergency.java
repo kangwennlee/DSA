@@ -13,17 +13,19 @@ public class Emergency implements Comparable<Emergency> {
         String typeOfEmergency;
         String location;
         User victim;
+        Integer severity;
         
-        public Emergency(User victim,String typeofEmergency, String location){
+        public Emergency(User victim,String typeofEmergency, String location, int severity){
             this.location = location;
             this.typeOfEmergency = typeofEmergency;
             this.victim = victim;
+            this.severity = severity;
         }
         
 
     @Override
     public int compareTo(Emergency emergency) {
-        return this.typeOfEmergency.compareTo(emergency.typeOfEmergency);
+        return this.severity.compareTo(emergency.severity);
     }
     
     public String toString(){
