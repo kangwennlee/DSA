@@ -161,11 +161,12 @@ public class security_system {
     }
 
     public static void initializeEmergency() {
-        emergencyService.addEmergency(userList.getUserByName("Yang Poh Yee"), 1, "Bangunan Tan Siew Sin");
+        emergencyService.initialiseTypeOfEmergency();
+        emergencyService.addEmergency(userList.getUserByName("Yang Poh Yee"), 1, "CITC");
         emergencyService.addEmergency(userList.getUserByName("Chan Peck Hui"), 2, "Block D");
         emergencyService.addEmergency(userList.getUserByName("Derrick Liew"), 4, "Block K");
         emergencyService.addTools("Fire Extinguisher", "Put off fire");
-        emergencyService.addTools("First Aid Kit", "Material needed for first aid");
+        emergencyService.addTools("First Aid Kit Unit", "Material needed for first aid");
     }
 
     public static void emergencyModule() {
@@ -176,7 +177,7 @@ public class security_system {
         int ans;
 
         System.out.print("Please select the following option:");
-        System.out.print("\n1. Add emergency alert\n2. Remove emergency alert\n3. Add tools\n4. Remove tools\n5. Add emergency contact\n6. Remove emergency contact\n7. Return to main menu");
+        System.out.print("\n1. Add emergency alert\n2. Remove emergency alert\n3. Display Emergency List\n4.Display Victim List\n5. Add tools\n6. Remove tools\n7. Display Tools List\n8. Return to main menu");
         System.out.print("\nEnter your choice: ");
         switch (scan.nextInt()) {
             case 1:
@@ -207,7 +208,7 @@ public class security_system {
                 emergencyService.addEmergency(victim, typeOfEmergency, location);
                 System.out.println("Emergency Added!");
                 printLine();
-                emergencyService.printEmergencyQueue();
+                System.out.print(emergencyService.printEmergencyQueue());
                 break;
             case 2:
                 scan.nextLine();
@@ -216,43 +217,45 @@ public class security_system {
                     break;
                 }
 
-                emergencyService.printEmergencyQueue();
+                System.out.print(emergencyService.printEmergencyQueue());
                 System.out.print("Which emergency do you want to remove? ");
                 ans = scan.nextInt();
                 emergencyService.removeEmergency(ans);
-                emergencyService.printEmergencyQueue();
+                System.out.print(emergencyService.printEmergencyQueue());
+                break;
+            case 3:
+                System.out.print(emergencyService.printEmergencyQueue());
+                break;
+            case 4:
+                System.out.print(emergencyService.printVictimsList());
                 break;
 
-            case 3:
+            case 5:
                 scan.nextLine();
                 System.out.print("Tool name: ");
                 toolName = scan.nextLine();
                 System.out.print("Tool usages: ");
                 toolUsage = scan.nextLine();
                 emergencyService.addTools(toolName, toolUsage);
-                emergencyService.printToolList();
+                System.out.print(emergencyService.printToolList());
                 break;
-            case 4:
+            case 6:
                 scan.nextLine();
                 if(emergencyService.getToolListSize() <=0){
                     System.out.print("There are no tools available to be removed");
                     break;
                 }
 
-                emergencyService.printToolList();
+                System.out.print(emergencyService.printToolList());
                 System.out.print("Which tool do you want to remove?: ");
                 ans = scan.nextInt();
                 emergencyService.removeTools(ans);
-                emergencyService.printToolList();
+                System.out.print(emergencyService.printToolList());
                 break;
-            case 5:
-                System.out.print("Please enter user's name: ");
-                scan.nextLine();
-                break;
-            case 6:
-
-                break;
+            
             case 7:
+                System.out.print(emergencyService.printToolList());
+            case 8:
                 repeatOption = false;
                 break;
             default:

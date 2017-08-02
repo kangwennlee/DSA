@@ -47,8 +47,8 @@ public class EmergencyService {
             emergencyQueue.enqueue(newCase);
     }
     
-    public void removeEmergency(){
-        emergencyQueue.dequeue();
+    public Emergency retrieveEmergency(){
+        return emergencyQueue.dequeue();
     }
 
     public void removeEmergency(int positionOfEmergency) {
@@ -76,13 +76,23 @@ public class EmergencyService {
         return myEmergency;
     }
 
-    public void printEmergencyQueue() {
-        System.out.println("Emergency Queue: ");
-        int index = 1;
+    public String printEmergencyQueue() {
+        String str ="";
+        str +="Emergency Queue:\nNo.\tType Of Emergency\tLocation of Emergency\tVictim Name\tVictim Contact No.\n";
         for (int i = 1; i <= emergencyQueue.size(); i++) {
-            System.out.print(i + ". \n");
-            System.out.print(emergencyQueue.getEntry(i));
+            str+=i + ".\t" + emergencyQueue.getEntry(i).toString() + "\n";
         }
+        return str;
+        
+    }
+    
+    public String printVictimsList(){
+        String str ="";
+        str +="Victims List:\nNo.\tVictim Name\tVictim Contact No.\n";
+        for (int i = 1; i <= emergencyQueue.size(); i++) {
+            str+=i + ".\t" + emergencyQueue.getEntry(i).victim.toString() + "\n";
+        }
+        return str;
     }
 
     public void addTools(String toolName, String toolUsage) {
@@ -107,11 +117,14 @@ public class EmergencyService {
         return null;
     }
 
-    public void printToolList() {
-        System.out.println("Tool List: ");
+    public String printToolList() {
+        
+        String str ="";
+        str +="Tools List:\nNo.\tTools Name\t\t\tTools Usages\n";
         for (int i = 1; i <= toolsList.getLength(); i++) {
-            System.out.print(i + ". \n");
-            System.out.print(toolsList.getEntry(i));
+            str+=i + ".\t" + toolsList.getEntry(i).toString() + "\n";
         }
+        return str;
+        
     }
 }

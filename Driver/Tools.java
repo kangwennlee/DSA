@@ -25,6 +25,6 @@ public class Tools implements Comparable<Tools>{
     }
     
     public String toString(){
-        return "Tool name: " + toolName + "  Tool usage: " + toolUsage +"\n";
+        return toolName + "\t\t" + toolUsage;
     }
 }

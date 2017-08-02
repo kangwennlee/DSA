@@ -29,6 +29,6 @@ public class Emergency implements Comparable<Emergency> {
     }
     
     public String toString(){
-        return "Type Of Emergency: " + typeOfEmergency + "\nLocation: " + location + "\nVictim: " + victim;
+        return typeOfEmergency + "\t\t" + location + "\t\t\t" + victim;
     }
 }
