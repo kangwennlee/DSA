@@ -13,7 +13,7 @@ import ADT.*;
  */
 public class EmergencyService {
 
-    QueueInterface<Emergency> emergencyQueue = new LinkedQueue<>();
+    PriorityQueueInterface<Emergency> emergencyQueue = new LinkedQueue<>();
     SortedListInterface<Tools> toolsList = new SortedLinkList<>();
     SortedListInterface<String> typeOfEmergencyList = new SortedLinkList<>();
     

@@ -9,7 +9,7 @@ package ADT;
  *
  * @author kangw
  */
-public interface QueueInterface<T> {
+public interface PriorityQueueInterface<T> {
     void enqueue (T element);
     //add element to the rear of this queue.
     

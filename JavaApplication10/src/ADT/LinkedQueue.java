@@ -9,7 +9,7 @@ package ADT;
  * @author Kangwenn
  * @param <T>
  */
-public class LinkedQueue<T extends Comparable<? super T>> implements QueueInterface<T> {
+public class LinkedQueue<T extends Comparable<? super T>> implements PriorityQueueInterface<T> {
     protected Node<T> front;
     protected Node<T> rear;
     protected int numElements = 0;
