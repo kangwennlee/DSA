@@ -79,6 +79,16 @@ public class UserList {
         return str;
     }
     
+    public String printAvailableGuard(){
+        String str = "";
+        str += "List of users:\nNo.\tName\t\tContact Number\tStaff ID\tBusy?\n";
+        for (int i = 1; i <= listG.getLength(); i++) {
+            if(listG.getEntry(i).busy==false)
+                str+= i + ".\t" + listG.getEntry(i).toString()+"\n";
+        }
+        return str;
+    }
+    
     public Guard getGuard(int choice){
         return listG.getEntry(choice);
     }

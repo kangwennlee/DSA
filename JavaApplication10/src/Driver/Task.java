@@ -26,11 +26,12 @@ public class Task implements Comparable<Task>{
 
     @Override
     public int compareTo(Task o) {
-       return emergency.typeOfEmergency.compareTo(o.emergency.typeOfEmergency);
+        return o.emergency.severity.compareTo(emergency.severity);
+       //return emergency.severity.compareTo(o.emergency.severity);
     }
     
     @Override
     public String toString(){
-        return (emergency.victim.name+"\t"+emergency.typeOfEmergency+"\t"+guard.name+"\t"+tools.toolName+"\t"+completed);       
+        return (emergency.victim.name+"\t"+emergency.typeOfEmergency+"\t\t"+guard.name+"\t"+tools.toolName+"\t"+completed);       
     }
 }

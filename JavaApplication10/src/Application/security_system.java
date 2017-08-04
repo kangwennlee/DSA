@@ -165,8 +165,14 @@ public class security_system {
         emergencyService.addEmergency(userList.getUserByName("Yang Poh Yee"), 1, "CITC");
         emergencyService.addEmergency(userList.getUserByName("Chan Peck Hui"), 2, "Block D");
         emergencyService.addEmergency(userList.getUserByName("Derrick Liew"), 4, "Block K");
-        emergencyService.addTools("Fire Extinguisher", "Put off fire");
-        emergencyService.addTools("First Aid Kit Unit", "Material needed for first aid");
+        emergencyService.addEmergency(userList.getUserByName("Lee Kang Wenn"), 6, "Block M");
+        emergencyService.addEmergency(userList.getUserByName("Shim Hiu Yin"), 3, "Block A");
+        emergencyService.addEmergency(userList.getUserByName("Loh Kai Xuan"), 5, "Block L");
+        emergencyService.addTools("Stretcher", "Carry person");
+        emergencyService.addTools("First Aid Kit", "Material needed for first aid");
+        emergencyService.addTools("Rope", "To save people");
+        emergencyService.addTools("Tape", "To stick 2 object together");
+        emergencyService.addTools("Dehydrate Salt", "To rehydrate");
     }
 
     public static void emergencyModule() {
@@ -276,20 +282,31 @@ public class security_system {
         switch (scan.nextInt()) {
             case 1:
                 scan.nextLine();
-                userList.printGuardList();
-                System.out.print("Enter Guard's Name: ");
-                Guard guard = userList.getGuardByName(scan.nextLine());
+                System.out.print(userList.printAvailableGuard());
+                System.out.print("Enter guard's choice: ");
+                Guard guard = userList.getGuard(scan.nextInt());
                 Emergency emergency = emergencyService.retrieveEmergency();
-                System.out.println(emergency);
-                emergencyService.printToolList();
-                System.out.println("Please choose the suitable tools to be used: ");
-                int choice = scan.nextInt();
-                Tools tools = emergencyService.getToolByPosition(choice);
-                taskAssignment.addTask(emergency, guard, tools);
+                if (emergency != null) {
+                    System.out.println(emergency);
+                    System.out.print(emergencyService.printToolList());
+                    System.out.print("Please choose the suitable tools to be used: ");
+                    int choice = scan.nextInt();
+                    Tools tools = emergencyService.getToolByPosition(choice);
+                    taskAssignment.addTask(emergency, guard, tools);
+                    System.out.println("Task assigned successfully!");
+                    taskAssignment.printPendingTask();
+                }else{
+                    System.out.println("No more task to be assigned!");
+                }
                 break;
             case 2: // update task status
                 scan.nextLine();
-                
+                taskAssignment.printPendingTask();
+                System.out.print("Please select the task that is completed: ");
+                if (taskAssignment.updateTaskStatus(scan.nextInt()) == true) {
+                    System.out.println("Update task completed!");
+                }
+                taskAssignment.printCompletedTaskList();
                 break;
             case 3: // print pending task
                 scan.nextLine();
@@ -302,7 +319,7 @@ public class security_system {
             case 5: // clear completed task
                 scan.nextLine();
                 taskAssignment.clearCompletedTask();
-                System.out.println("Completed Task List is cleared!");             
+                System.out.println("Completed Task List is cleared!");
                 break;
             case 6:
                 scan.nextLine();
@@ -318,17 +335,33 @@ public class security_system {
     public static void reportModule() {
         printLine();
         System.out.print("Please select the following option:");
-        System.out.print("\n1. Print List of Users\n2. Print List of Guards\n3. Print Emergency Queue");
+        System.out.print("\n1. Print List of Users\n2. Print List of Guards\n3. Print Emergency Queue\n4. Print List of Tools\n5. Print Victim List\n6. Print Completed Task\n7. Print Pending Task\n8. Return to Main Menu");
         System.out.print("\nEnter your choice: ");
         switch (scan.nextInt()) {
             case 1:
-                userList.printUserList();
+                System.out.print(userList.printUserList());
                 break;
             case 2:
-                userList.printGuardList();
+                System.out.print(userList.printGuardList());
                 break;
             case 3:
-
+                System.out.print(emergencyService.printEmergencyQueue());
+                break;
+            case 4:
+                System.out.print(emergencyService.printToolList());
+                break;
+            case 5:
+                System.out.print(emergencyService.printVictimsList());
+                break;
+            case 6:
+                taskAssignment.printCompletedTaskList();
+                break;
+            case 7:
+                taskAssignment.printPendingTask();
+                break;
+            case 8:
+                repeatOption = false;
+                break;
         }
     }
 

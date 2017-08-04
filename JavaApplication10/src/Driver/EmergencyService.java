@@ -48,7 +48,10 @@ public class EmergencyService {
     }
     
     public Emergency retrieveEmergency(){
-        return emergencyQueue.dequeue();
+        if(emergencyQueue.isEmpty()==false)
+            return emergencyQueue.dequeue();
+        else
+            return null;
     }
 
     public void removeEmergency(int positionOfEmergency) {

@@ -32,6 +32,7 @@ public class TaskAssignment {
 
     public void printPendingTask() {
         int index = 1;
+        System.out.print("Pending Task:\nNo.\tName\tType of Emergency\tGuard Assigned\tTools Used\t\tCompleted?\n");
         for (int i = 1; i <= taskList.getLength(); i++) {
             if (taskList.getEntry(i).completed == false) {
                 System.out.println(index++ + "." + taskList.getEntry(i).toString());
@@ -41,6 +42,7 @@ public class TaskAssignment {
 
     public void printCompletedTaskList() {
         int index = 1;
+        System.out.print("Completed Task:\nNo.\tName\tType of Emergency\tGuard Assigned\tTools Used\t\tCompleted?\n");
         for (int i = 1; i <= taskList.getLength(); i++) {
             if (taskList.getEntry(i).completed == true) {
                 System.out.println(index++ + "." + taskList.getEntry(i).toString());
