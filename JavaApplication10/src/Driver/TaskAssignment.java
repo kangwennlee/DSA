@@ -49,6 +49,10 @@ public class TaskAssignment {
     }
 
     public void clearCompletedTask() {
-        
+        for (int i = 1; i <= taskList.getLength(); i++) {
+            if(taskList.getEntry(i).completed == true){
+                taskList.remove(i);
+            }
+        }
     }
 }

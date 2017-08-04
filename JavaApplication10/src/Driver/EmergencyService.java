@@ -103,6 +103,10 @@ public class EmergencyService {
         toolsList.remove(toolsList.getEntry(position));
     }
     
+    public Tools getToolByPosition(int position){
+        return toolsList.getEntry(position);
+    }
+    
     public int getToolListSize(){
         return toolsList.getLength();
     }
@@ -112,7 +116,6 @@ public class EmergencyService {
             if (toolsList.getEntry(i).toolName == toolName) {
                 return toolsList.getEntry(i);
             }
-
         }
         return null;
     }

@@ -211,7 +211,6 @@ public class security_system {
                 } else {
                     System.out.println("User already has an emergency in the queue!");
                 }
-
                 break;
             case 2:
                 scan.nextLine();
@@ -280,6 +279,38 @@ public class security_system {
                 userList.printGuardList();
                 System.out.print("Enter Guard's Name: ");
                 Guard guard = userList.getGuardByName(scan.nextLine());
+                Emergency emergency = emergencyService.retrieveEmergency();
+                System.out.println(emergency);
+                emergencyService.printToolList();
+                System.out.println("Please choose the suitable tools to be used: ");
+                int choice = scan.nextInt();
+                Tools tools = emergencyService.getToolByPosition(choice);
+                taskAssignment.addTask(emergency, guard, tools);
+                break;
+            case 2: // update task status
+                scan.nextLine();
+                
+                break;
+            case 3: // print pending task
+                scan.nextLine();
+                taskAssignment.printPendingTask();
+                break;
+            case 4: // print completed task
+                scan.nextLine();
+                taskAssignment.printCompletedTaskList();
+                break;
+            case 5: // clear completed task
+                scan.nextLine();
+                taskAssignment.clearCompletedTask();
+                System.out.println("Completed Task List is cleared!");             
+                break;
+            case 6:
+                scan.nextLine();
+                repeatOption = false;
+                break;
+            default:
+                System.out.println("Invalid number. Please try again.");
+                break;
         }
 
     }
