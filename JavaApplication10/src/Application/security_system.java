@@ -156,6 +156,8 @@ public class security_system {
         userList.addUser("Yang Poh Yee", "016-1389874");
         userList.addUser("Derrick Liew", "016-9413787");
         userList.addUser("Loh Kai Xuan", "016-5721234");
+        userList.addUser("Shim Hiu Yin", "016-7380433");
+        userList.addUser("Lee Jong Suk", "016-2628136");
         //
         userList.addGuard("Andy Lim", "012-8092220", "1607165");
         userList.addGuard("Harry Lee", "014-6967064", "1308521");
@@ -174,8 +176,8 @@ public class security_system {
         emergencyService.addEmergency(userList.getUserByName("Loh Kai Xuan"), 5, "Block L");
         emergencyService.addTools("Stretcher", "Carry person");
         emergencyService.addTools("First Aid Kit", "Material needed for first aid");
-        emergencyService.addTools("Rope", "To save people");
-        emergencyService.addTools("Tape", "To stick 2 object together");
+        emergencyService.addTools("Rope    ", "To save people");
+        emergencyService.addTools("Tape    ", "To stick 2 object together");
         emergencyService.addTools("Dehydrate Salt", "To rehydrate");
     }
 
@@ -186,11 +188,12 @@ public class security_system {
         String toolName, toolUsage;
         int ans;
 
+        //Prompt for user options
         System.out.print("Please select the following option:");
         System.out.print("\n1. Add emergency alert\n2. Remove emergency alert\n3. Display Emergency List\n4. Display Victim List\n5. Add tools\n6. Remove tools\n7. Display Tools List\n8. Return to main menu");
         System.out.print("\nEnter your choice: ");
         switch (scan.nextInt()) {
-            case 1: //Add Emergency Alert
+            case 1: //Add emergency alert
                 scan.nextLine();
                 do {
                     System.out.print("User name: ");
@@ -219,29 +222,29 @@ public class security_system {
                     printLine();
                     System.out.print(emergencyService.printEmergencyQueue());
                 } else {
-                    System.out.println("User already has an emergency in the queue!");
+                    System.out.println("\nUser already has an emergency in the queue!");
                 }
                 break;
-            case 2: //Remove emergency Alert
+            case 2: //remove emergency alert
                 scan.nextLine();
                 if (emergencyService.getEmergencyQueueSize() <= 0) {
                     System.out.print("There are currently no emergency to be removed");
                     break;
                 }
-
+                
                 System.out.print(emergencyService.printEmergencyQueue());
                 System.out.print("Which emergency do you want to remove? ");
                 ans = scan.nextInt();
                 emergencyService.removeEmergency(ans);
                 System.out.print(emergencyService.printEmergencyQueue());
                 break;
-            case 3: //Print emergency Queue
+            case 3: //display emergency list
                 System.out.print(emergencyService.printEmergencyQueue());
                 break;
-            case 4: //Print victim list
+            case 4: //display victim list
                 System.out.print(emergencyService.printVictimsList());
                 break;
-            case 5: //Add tool
+            case 5: //add emergency tools
                 scan.nextLine();
                 System.out.print("Tool name: ");
                 toolName = scan.nextLine();
@@ -251,7 +254,7 @@ public class security_system {
                 System.out.println("Tool Added!");
                 System.out.print(emergencyService.printToolList());
                 break;
-            case 6: //delete tool
+            case 6: //remove emergency tools
                 scan.nextLine();
                 if (emergencyService.getToolListSize() <= 0) {
                     System.out.print("There are no tools available to be removed");
@@ -265,13 +268,13 @@ public class security_system {
                     System.out.print(emergencyService.printToolList());
                 }
                 break;
-            case 7: //print tool list
+            case 7: //display tools list
                 System.out.print(emergencyService.printToolList());
                 break;
-            case 8: //return to main menu
+            case 8: //back to main menu
                 repeatOption = false;
                 break;
-            default:
+            default: //number not in option range
                 System.out.println("Invalid number. Please try again.");
                 break;
         }
@@ -325,7 +328,7 @@ public class security_system {
                 taskAssignment.clearCompletedTask();
                 System.out.println("Completed Task List is cleared!");
                 break;
-            case 6: //return to main menu
+            case 6:
                 scan.nextLine();
                 repeatOption = false;
                 break;
