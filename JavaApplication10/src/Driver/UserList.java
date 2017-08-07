@@ -32,24 +32,42 @@ public class UserList {
 
     public boolean removeUser(int position) {
         //remove the user from the list based on the position
-        return listU.remove(position)!=null;
+        return listU.remove(position) != null;
+    }
+
+    public boolean updateUserName(User user, String newName) {
+        if (user != null) {
+            user.name = newName;
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public boolean updateUserContact(User user, String contact) {
+        if (user != null) {
+            user.contactNo = contact;
+            return true;
+        } else{
+            return false;
+        }
     }
 
     public String printUserList() {
         //Get all the entry from the list and print out all the entry(user)
-        String str ="";
-        str +="List of users:\nNo.\tName\t\tContact Number\n";
+        String str = "";
+        str += "List of users:\nNo.\tName\t\tContact Number\n";
         for (int i = 1; i <= listU.getLength(); i++) {
-            str+=i + ".\t" + listU.getEntry(i).toString() + "\n";
+            str += i + ".\t" + listU.getEntry(i).toString() + "\n";
         }
         return str;
     }
-    
-    public User getUser(int choice){
+
+    public User getUser(int choice) {
         //retrive the entry(user) from the list
         return listU.getEntry(choice);
     }
-    
+
     public User getUserByName(String name) {
         //Searach for the user based on the name given in the list
         for (int i = 1; i <= listU.getLength(); i++) {
@@ -72,33 +90,34 @@ public class UserList {
     }
 
     public boolean removeGuard(int position) {
-        return listG.remove(position)!=null;
+        return listG.remove(position) != null;
     }
 
     public String printGuardList() {
         String str = "";
-        str += "List of users:\nNo.\tName\t\tContact Number\tStaff ID\tBusy?\n";
+        str += "List of guards:\nNo.\tName\t\tContact Number\tStaff ID\tBusy?\n";
         for (int i = 1; i <= listG.getLength(); i++) {
-            str+= i + ".\t" + listG.getEntry(i).toString()+"\n";
+            str += i + ".\t" + listG.getEntry(i).toString() + "\n";
         }
         return str;
     }
-    
-    public String printAvailableGuard(){
+
+    public String printAvailableGuard() {
         //only print guard with the variable busy equal to false
         String str = "";
         str += "List of users:\nNo.\tName\t\tContact Number\tStaff ID\tBusy?\n";
         for (int i = 1; i <= listG.getLength(); i++) {
-            if(listG.getEntry(i).busy==false)
-                str+= i + ".\t" + listG.getEntry(i).toString()+"\n";
+            if (listG.getEntry(i).busy == false) {
+                str += i + ".\t" + listG.getEntry(i).toString() + "\n";
+            }
         }
         return str;
     }
-    
-    public Guard getGuard(int choice){
+
+    public Guard getGuard(int choice) {
         return listG.getEntry(choice);
     }
-    
+
     public Guard getGuardByName(String name) {
         for (int i = 1; i <= listG.getLength(); i++) {
             if (listG.getEntry(i).name.equals(name)) {

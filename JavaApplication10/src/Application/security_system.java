@@ -79,7 +79,7 @@ public class security_system {
         int choice;
         printLine();
         System.out.print("Please select the following option:");
-        System.out.print("\n1. Add User\n2. Print List of users\n3. Delete User\n4. Add Guard\n5. Print List of Guards\n6. Delete Guard\n7. Return to main menu");
+        System.out.print("\n1. Add User\n2. Update User Detail\n3. Print List of users\n4. Delete User\n5. Add Guard\n6. Print List of Guards\n7. Delete Guard\n8. Return to main menu");
         System.out.print("\nEnter your choice: ");
         switch (scan.nextInt()) {
             case 1: //Add User
@@ -91,15 +91,42 @@ public class security_system {
                 contactNo = scan.nextLine();
                 if (userList.addUser(name, contactNo)) {
                     System.out.println("User " + name + " added!");
+                    System.out.println(userList.getUserByName(name).toString());
                 } else {
                     System.out.println("User existed in the list!");
                 }
                 break;
-            case 2: //Print List of users
+            case 2:
+                scan.nextLine();
+                System.out.print(userList.printUserList());
+                System.out.print("Which user do you want to update? (number): ");
+                choice = scan.nextInt();
+                User user = userList.getUser(choice);
+                System.out.println("Please select the following option: ");
+                System.out.print("1. Update User Name\n2. Update User Contact Number\nEnter your choice: ");
+                choice = scan.nextInt();
+                scan.nextLine();
+                if(choice == 1){
+                    System.out.print("Please Enter new user name: ");
+                    name = scan.nextLine();
+                    userList.updateUserName(user, name);
+                    System.out.println("User's name updated!");
+                    System.out.println(user.toString());
+                }else if(choice == 2){
+                    System.out.print("Please Enter new contact number: ");
+                    contactNo = scan.nextLine();
+                    userList.updateUserContact(user, contactNo);
+                    System.out.println("User's name updated!");
+                    System.out.println(user.toString());
+                }else{
+                    System.out.println("Error! Choice is not selected!");
+                }
+                break;
+            case 3: //Print List of users
                 scan.nextLine();
                 System.out.print(userList.printUserList());
                 break;
-            case 3: //Delete User
+            case 4: //Delete User
                 scan.nextLine();
                 System.out.print(userList.printUserList());
                 System.out.print("Which user do you want to delete? (number): ");
@@ -111,7 +138,7 @@ public class security_system {
                     System.out.println("User does not exists in the list!");
                 }
                 break;
-            case 4: //Add Guard
+            case 5: //Add Guard
                 scan.nextLine();
                 System.out.println("Please enter the following details:");
                 System.out.print("Guard Name: ");
@@ -122,15 +149,17 @@ public class security_system {
                 workID = scan.nextLine();
                 if (userList.addGuard(name, contactNo, workID)) {
                     System.out.println("Guard " + name + "added!");
+                    System.out.println(userList.getGuardByName(name).toString());
+                    
                 } else {
                     System.out.println("Guard existed in the list!");
                 }
                 break;
-            case 5: //Print List of Guard
+            case 6: //Print List of Guard
                 scan.nextLine();
                 System.out.print(userList.printGuardList());
                 break;
-            case 6: //Delete Guard
+            case 7: //Delete Guard
                 scan.nextLine();
                 System.out.print(userList.printGuardList());
                 System.out.print("Which gaurd you do you want to delete? (number): ");
@@ -142,7 +171,7 @@ public class security_system {
                     System.out.println("Guard does not exists in the list!");
                 }
                 break;
-            case 7: //Return to main menu
+            case 8: //Return to main menu
                 repeatOption = false;
                 break;
             default:
