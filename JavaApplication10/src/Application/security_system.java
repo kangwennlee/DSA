@@ -82,7 +82,7 @@ public class security_system {
         System.out.print("\n1. Add User\n2. Print List of users\n3. Delete User\n4. Add Guard\n5. Print List of Guards\n6. Delete Guard\n7. Return to main menu");
         System.out.print("\nEnter your choice: ");
         switch (scan.nextInt()) {
-            case 1:
+            case 1: //Add User
                 scan.nextLine();
                 System.out.println("Please enter the following details:");
                 System.out.print("User Name: ");
@@ -95,11 +95,11 @@ public class security_system {
                     System.out.println("User existed in the list!");
                 }
                 break;
-            case 2:
+            case 2: //Print List of users
                 scan.nextLine();
                 System.out.print(userList.printUserList());
                 break;
-            case 3:
+            case 3: //Delete User
                 scan.nextLine();
                 System.out.print(userList.printUserList());
                 System.out.print("Which user do you want to delete? (number): ");
@@ -107,9 +107,11 @@ public class security_system {
                 if (userList.removeUser(choice) == true) {
                     System.out.println("User Successfully deleted!");
                     System.out.print(userList.printUserList());
+                } else {
+                    System.out.println("User does not exists in the list!");
                 }
                 break;
-            case 4:
+            case 4: //Add Guard
                 scan.nextLine();
                 System.out.println("Please enter the following details:");
                 System.out.print("Guard Name: ");
@@ -124,11 +126,11 @@ public class security_system {
                     System.out.println("Guard existed in the list!");
                 }
                 break;
-            case 5:
+            case 5: //Print List of Guard
                 scan.nextLine();
                 System.out.print(userList.printGuardList());
                 break;
-            case 6:
+            case 6: //Delete Guard
                 scan.nextLine();
                 System.out.print(userList.printGuardList());
                 System.out.print("Which gaurd you do you want to delete? (number): ");
@@ -136,9 +138,11 @@ public class security_system {
                 if (userList.removeGuard(choice) == true) {
                     System.out.println("Guard Successfully deleted!");
                     System.out.print(userList.printGuardList());
+                } else {
+                    System.out.println("Guard does not exists in the list!");
                 }
                 break;
-            case 7:
+            case 7: //Return to main menu
                 repeatOption = false;
                 break;
             default:
@@ -152,6 +156,8 @@ public class security_system {
         userList.addUser("Yang Poh Yee", "016-1389874");
         userList.addUser("Derrick Liew", "016-9413787");
         userList.addUser("Loh Kai Xuan", "016-5721234");
+        userList.addUser("Shim Hiu Yin", "016-7380433");
+        userList.addUser("Lee Jong Suk", "016-2628136");
         //
         userList.addGuard("Andy Lim", "012-8092220", "1607165");
         userList.addGuard("Harry Lee", "014-6967064", "1308521");
@@ -170,8 +176,8 @@ public class security_system {
         emergencyService.addEmergency(userList.getUserByName("Loh Kai Xuan"), 5, "Block L");
         emergencyService.addTools("Stretcher", "Carry person");
         emergencyService.addTools("First Aid Kit", "Material needed for first aid");
-        emergencyService.addTools("Rope", "To save people");
-        emergencyService.addTools("Tape", "To stick 2 object together");
+        emergencyService.addTools("Rope    ", "To save people");
+        emergencyService.addTools("Tape    ", "To stick 2 object together");
         emergencyService.addTools("Dehydrate Salt", "To rehydrate");
     }
 
@@ -182,11 +188,12 @@ public class security_system {
         String toolName, toolUsage;
         int ans;
 
+        //Prompt for user options
         System.out.print("Please select the following option:");
         System.out.print("\n1. Add emergency alert\n2. Remove emergency alert\n3. Display Emergency List\n4. Display Victim List\n5. Add tools\n6. Remove tools\n7. Display Tools List\n8. Return to main menu");
         System.out.print("\nEnter your choice: ");
         switch (scan.nextInt()) {
-            case 1:
+            case 1: //Add emergency alert
                 scan.nextLine();
                 do {
                     System.out.print("User name: ");
@@ -215,10 +222,10 @@ public class security_system {
                     printLine();
                     System.out.print(emergencyService.printEmergencyQueue());
                 } else {
-                    System.out.println("User already has an emergency in the queue!");
+                    System.out.println("\nUser already has an emergency in the queue!");
                 }
                 break;
-            case 2:
+            case 2: //remove emergency alert
                 scan.nextLine();
                 if (emergencyService.getEmergencyQueueSize() <= 0) {
                     System.out.print("There are currently no emergency to be removed");
@@ -231,13 +238,13 @@ public class security_system {
                 emergencyService.removeEmergency(ans);
                 System.out.print(emergencyService.printEmergencyQueue());
                 break;
-            case 3:
+            case 3: //display emergency list
                 System.out.print(emergencyService.printEmergencyQueue());
                 break;
-            case 4:
+            case 4: //display victim list
                 System.out.print(emergencyService.printVictimsList());
                 break;
-            case 5:
+            case 5: //add emergency tools
                 scan.nextLine();
                 System.out.print("Tool name: ");
                 toolName = scan.nextLine();
@@ -247,7 +254,7 @@ public class security_system {
                 System.out.println("Tool Added!");
                 System.out.print(emergencyService.printToolList());
                 break;
-            case 6:
+            case 6: //remove emergency tools
                 scan.nextLine();
                 if (emergencyService.getToolListSize() <= 0) {
                     System.out.print("There are no tools available to be removed");
@@ -261,13 +268,13 @@ public class security_system {
                     System.out.print(emergencyService.printToolList());
                 }
                 break;
-            case 7:
+            case 7: //display tools list
                 System.out.print(emergencyService.printToolList());
                 break;
-            case 8:
+            case 8: //back to main menu
                 repeatOption = false;
                 break;
-            default:
+            default: //number not in option range
                 System.out.println("Invalid number. Please try again.");
                 break;
         }
@@ -282,12 +289,12 @@ public class security_system {
         switch (scan.nextInt()) {
             case 1:
                 scan.nextLine();
-                System.out.print(userList.printAvailableGuard());
-                System.out.print("Enter guard's choice: ");
-                Guard guard = userList.getGuard(scan.nextInt());
                 Emergency emergency = emergencyService.retrieveEmergency();
                 if (emergency != null) {
                     System.out.println(emergency);
+                    System.out.print(userList.printAvailableGuard());
+                    System.out.print("Enter guard's choice: ");
+                    Guard guard = userList.getGuard(scan.nextInt());
                     System.out.print(emergencyService.printToolList());
                     System.out.print("Please choose the suitable tools to be used: ");
                     int choice = scan.nextInt();
@@ -295,7 +302,7 @@ public class security_system {
                     taskAssignment.addTask(emergency, guard, tools);
                     System.out.println("Task assigned successfully!");
                     taskAssignment.printPendingTask();
-                }else{
+                } else {
                     System.out.println("No more task to be assigned!");
                 }
                 break;

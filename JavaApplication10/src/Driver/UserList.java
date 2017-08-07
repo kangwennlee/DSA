@@ -16,9 +16,10 @@ public class UserList {
     SortedListInterface<Guard> listG = new SortedLinkList<>();
     SortedListInterface<User> listU = new SortedLinkList<>();
 
-    //addUser, removeUser, printUserDetail, printUserList, getUserByName
-    //addGuard, removeGuard, printGuardDetail, printGuardList, getGuardByName
+    //addUser, removeUser, printUserList, getUser, getUserByName
+    //addGuard, removeGuard, printGuardList, getGuard, getGuardByName
     public boolean addUser(String name, String contactNo) {
+        //Create a new user and add the user into the list
         User user = getUserByName(name);
         if (user == null) {
             User newUser = new User(name, contactNo);
@@ -30,10 +31,12 @@ public class UserList {
     }
 
     public boolean removeUser(int position) {
+        //remove the user from the list based on the position
         return listU.remove(position)!=null;
     }
 
     public String printUserList() {
+        //Get all the entry from the list and print out all the entry(user)
         String str ="";
         str +="List of users:\nNo.\tName\t\tContact Number\n";
         for (int i = 1; i <= listU.getLength(); i++) {
@@ -43,10 +46,12 @@ public class UserList {
     }
     
     public User getUser(int choice){
+        //retrive the entry(user) from the list
         return listU.getEntry(choice);
     }
     
     public User getUserByName(String name) {
+        //Searach for the user based on the name given in the list
         for (int i = 1; i <= listU.getLength(); i++) {
             if (listU.getEntry(i).name.equals(name)) {
                 return listU.getEntry(i);
@@ -80,6 +85,7 @@ public class UserList {
     }
     
     public String printAvailableGuard(){
+        //only print guard with the variable busy equal to false
         String str = "";
         str += "List of users:\nNo.\tName\t\tContact Number\tStaff ID\tBusy?\n";
         for (int i = 1; i <= listG.getLength(); i++) {
