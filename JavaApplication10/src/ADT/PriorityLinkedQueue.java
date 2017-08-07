@@ -1,9 +1,5 @@
 package ADT;
-/**
- *
- * @author Kangwenn
- * @param <T>
- */
+
 public class PriorityLinkedQueue<T extends Comparable<? super T>> implements PriorityQueueInterface<T> {
     protected Node<T> front; //pointing to first node in the queue
     protected Node<T> rear;  //pointing to last node in the queue

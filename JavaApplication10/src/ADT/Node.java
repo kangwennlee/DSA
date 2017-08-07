@@ -1,10 +1,5 @@
 package ADT;
 
-/**
- *
- * @author Kangwenn
- */
-
 public class Node<T> {
 
   private T data;       //data in the node
